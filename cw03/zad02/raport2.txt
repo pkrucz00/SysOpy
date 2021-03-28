@@ -1,0 +1,23 @@
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.010000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.010000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.580000	            0.300000	            0.270000
+large number of large files removed:	            0.270000	            0.130000	            0.140000
+    Alternative merging and removal:	            0.010000	            0.000000	            0.010000
+
+
+
+With forks
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+                      5_short_pairs:	            0.000000	            0.000000	            0.000000
+                      5_large_pairs:	            0.010000	            0.000000	            0.000000
+                   100_medium_files:	            0.000000	            0.000000	            0.000000
+                   1000_large_files:	            0.170000	            0.000000	            0.040000
+
+Testy pokazują, że użycie wielu procesów pozwoliło na wykorzystanie większej liczby rdzeni procesora, dzięki czemu operacje na dużych plikach wykonały się znacznie szybciej niż normalnie

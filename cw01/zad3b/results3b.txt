@@ -1,0 +1,82 @@
+TESTED WITH STATIC
+O0:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.010000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.580000	            0.300000	            0.280000
+large number of large files removed:	            0.270000	            0.120000	            0.150000
+    Alternative merging and removal:	            0.010000	            0.000000	            0.010000
+O1:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.010000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.580000	            0.320000	            0.260000
+large number of large files removed:	            0.270000	            0.120000	            0.160000
+    Alternative merging and removal:	            0.010000	            0.000000	            0.000000
+O2:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.000000	            0.000000	            0.000000
+medium number of med. files removed:	            0.010000	            0.000000	            0.000000
+ large number of large files merged:	            0.570000	            0.320000	            0.260000
+large number of large files removed:	            0.280000	            0.130000	            0.140000
+    Alternative merging and removal:	            0.000000	            0.000000	            0.000000
+O3:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.010000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.580000	            0.360000	            0.230000
+large number of large files removed:	            0.280000	            0.130000	            0.140000
+    Alternative merging and removal:	            0.010000	            0.010000	            0.000000
+Ofast:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.010000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.000000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.010000	            0.000000
+ large number of large files merged:	            0.580000	            0.320000	            0.250000
+large number of large files removed:	            0.280000	            0.120000	            0.160000
+    Alternative merging and removal:	            0.000000	            0.000000	            0.000000
+Os:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.010000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.590000	            0.370000	            0.220000
+large number of large files removed:	            0.280000	            0.120000	            0.150000
+    Alternative merging and removal:	            0.000000	            0.000000	            0.010000
+
+Różnice między kodem zoptymalizowanym i niezoptymalizowanym są w tym wypadku niewielkie. Zarówno czas rzeczywisty, użytkownika, jak i systemowy były do siebie bardzo zbliżone.
+Na bazie wyników można zatem wywnioskować, że dla zadanego przykładu optymalizacja nie daje zbyt dużych efektów.

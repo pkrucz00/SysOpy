@@ -1,0 +1,45 @@
+main_with_static:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.010000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.000000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.590000	            0.350000	            0.240000
+large number of large files removed:	            0.270000	            0.100000	            0.170000
+    Alternative merging and removal:	            0.000000	            0.000000	            0.000000
+
+main_with_shared:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.000000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.590000	            0.320000	            0.260000
+large number of large files removed:	            0.270000	            0.120000	            0.150000
+    Alternative merging and removal:	            0.000000	            0.000000	            0.010000
+
+main_with_dynamic:
+                               name:	       real_time [s]	       user_time [s]	        sys_time [s]
+       small number of files merged:	            0.000000	            0.000000	            0.000000
+      small number of files removed:	            0.000000	            0.000000	            0.000000
+ small number of large files merged:	            0.000000	            0.000000	            0.000000
+                       line removed:	            0.000000	            0.000000	            0.000000
+                      block removed:	            0.000000	            0.000000	            0.000000
+small number of large files removed:	            0.000000	            0.000000	            0.000000
+ Medium number of med. files merged:	            0.000000	            0.000000	            0.000000
+medium number of med. files removed:	            0.000000	            0.000000	            0.000000
+ large number of large files merged:	            0.580000	            0.290000	            0.280000
+large number of large files removed:	            0.270000	            0.140000	            0.130000
+    Alternative merging and removal:	            0.010000	            0.010000	            0.010000
+
+W powyższym przykładzie nie ma większej różnicy między którymkowiek ze sposobów kompilacji programu.
+Lekkie różnice można zaobserwować dla czasu usuwania dużych plikóœ - czas użytkownika jest nieco krótszy dla statycznej biblioteki niż dla dynamicznej.
+Różnica jest jednak zbyt mała, by na jej bazie wyciągać jakieś wnioski.
