@@ -77,15 +77,15 @@ int main(int argc, char** argv){
             fflush(stdout);
             fflush(stderr);
             
-            pid_t child_pd = fork();
-            if (child_pd == 0){
+            pid_t ppid = fork();
+            if (ppid == 0){
                 execve("/proc/self/exe", new_args, environ);
                 _exit(EXIT_FAILURE);
             }
 
             free(subdir_name);
         }
-    }   
+    }
 
     closedir(dir);
 

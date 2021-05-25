@@ -1,0 +1,98 @@
+No threads:   1, traverse function: numbers
+thread:   0	time:    1892 [µs]
+Total time:  2153 [µs]
+
+No threads:   2, traverse function: numbers
+thread:   0	time:    1259 [µs]
+thread:   1	time:     728 [µs]
+Total time:  1418 [µs]
+
+No threads:   4, traverse function: numbers
+thread:   0	time:    1181 [µs]
+thread:   1	time:     775 [µs]
+thread:   2	time:     717 [µs]
+thread:   3	time:     582 [µs]
+Total time:  1267 [µs]
+
+No threads:   8, traverse function: numbers
+thread:   0	time:    1185 [µs]
+thread:   1	time:    1266 [µs]
+thread:   2	time:    1280 [µs]
+thread:   3	time:    1316 [µs]
+thread:   4	time:    1246 [µs]
+thread:   5	time:     782 [µs]
+thread:   6	time:    1000 [µs]
+thread:   7	time:    1006 [µs]
+Total time:  2450 [µs]
+
+No threads:  16, traverse function: numbers
+thread:   0	time:    2265 [µs]
+thread:   1	time:    1232 [µs]
+thread:   2	time:     761 [µs]
+thread:   3	time:    1099 [µs]
+thread:   4	time:    1259 [µs]
+thread:   5	time:    1252 [µs]
+thread:   6	time:     996 [µs]
+thread:   7	time:     689 [µs]
+thread:   8	time:     678 [µs]
+thread:   9	time:    1078 [µs]
+thread:  10	time:     944 [µs]
+thread:  11	time:     946 [µs]
+thread:  12	time:     557 [µs]
+thread:  13	time:     610 [µs]
+thread:  14	time:     618 [µs]
+thread:  15	time:     927 [µs]
+Total time:  3811 [µs]
+
+No threads:   1, traverse function:   block
+thread:   0	time:     719 [µs]
+Total time:   905 [µs]
+
+No threads:   2, traverse function:   block
+thread:   0	time:     401 [µs]
+thread:   1	time:     384 [µs]
+Total time:   676 [µs]
+
+No threads:   4, traverse function:   block
+thread:   0	time:     283 [µs]
+thread:   1	time:     343 [µs]
+thread:   2	time:     239 [µs]
+thread:   3	time:     351 [µs]
+Total time:   550 [µs]
+
+No threads:   8, traverse function:   block
+thread:   0	time:     185 [µs]
+thread:   1	time:     173 [µs]
+thread:   2	time:     147 [µs]
+thread:   3	time:     163 [µs]
+thread:   4	time:     159 [µs]
+thread:   5	time:     175 [µs]
+thread:   6	time:     117 [µs]
+thread:   7	time:     173 [µs]
+Total time:   575 [µs]
+
+No threads:  16, traverse function:   block
+thread:   0	time:     105 [µs]
+thread:   1	time:      73 [µs]
+thread:   2	time:      91 [µs]
+thread:   3	time:      92 [µs]
+thread:   4	time:      94 [µs]
+thread:   5	time:      91 [µs]
+thread:   6	time:     109 [µs]
+thread:   7	time:      55 [µs]
+thread:   8	time:     103 [µs]
+thread:   9	time:      97 [µs]
+thread:  10	time:     109 [µs]
+thread:  11	time:     143 [µs]
+thread:  12	time:      92 [µs]
+thread:  13	time:     139 [µs]
+thread:  14	time:      60 [µs]
+thread:  15	time:      83 [µs]
+Total time:  1558 [µs]
+
+
+Pomiaru dokonano na 8 rdzeniowym procesorze.
+Jak widać "naiwna" wielowątkowość (typ przechodzenia tablicy "numbers") jedynie pogarsza wydajność, ponieważ potrzeba czasu na sworzenie i zamknięcie poszczególnych wątków.
+Dla blokowego przechodzenia po tablicy widzimy zasadniczą poprawę wydajności aż do 4 wątków. Powyżej tej wartości czas zaczyna się zwiększać, ponieważ tworzenie wątków zajmuje sporo czasu.
+
+Na koniec warto nadmienić, że przy przechodzeniue typu "numbers" wątek o indeksie 0 prawie zawsze zajmował najwięcej czasu, ponieważ był odpowiedzialny za odwracanie pikseli najbliżej czerni, a obraz, na którym testowano program, jest pełny ciemnych kolorów. Problem ten nie występuje w przechodzeniu typu "block". Można zatem wyciągnąć wniosek, że przy rozdzielaniu wątkom odpowiednich zadań powinniśmy się starać znaleźć taki podział, który będzie równomierny dla każdego typu danych, czyli nie będzie zależny od wejścia. 

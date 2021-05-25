@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cstdio": "c",
+        "unistd.h": "c",
+        "common.h": "c"
+    }
+}

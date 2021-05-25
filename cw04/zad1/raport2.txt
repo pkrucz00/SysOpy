@@ -1,0 +1,2 @@
+Dla funckji fork: ignore, handle i mask są przenoszone do procesu potomnego, pending nie
+Dla funckji exec: ignore, mask i pending sa przenoszone do procesu potomnego

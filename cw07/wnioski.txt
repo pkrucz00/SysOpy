@@ -1,0 +1,4 @@
+Dla obu systemów można było uzyskać dużą szybkość tworzenia i dostarczania pizz, kiedy liczba kucharzy i dostawców była mniejsza niż wielkości pieca i stołu (czyli N,M < 10)
+Gdy N i M przekraczaly te wartosc, program dzialal poprawnie, lecz piec i stol caly czas sa wowczas zapelnione.
+
+Dodatkowo mozna zauwazyc, ze kucharze byli "szybsi" niz dostawcy, wiec system potrzebowal zwykle 2-3 razy wiecej dostawcow, aby stol sie szybko nie zapelnial
