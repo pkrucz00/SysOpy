@@ -16,6 +16,7 @@ game* create_new_game(int p1, int p2){
 
 void move(game* g, int field_index, GRID_FIELD character){
     g->grid[field_index] = character;
+    g->status = check_game_status(g);
 }
 
 char* display_board(game* g){
@@ -104,6 +105,11 @@ client* create_client(int fd, char* name){
     c -> is_responding = 1;
     strcpy(c->name, name);
     return c;
+}
+
+// helpers
+int rand_range(int a, int b){
+    return rand()%(b - a + 1) + a;
 }
 
 

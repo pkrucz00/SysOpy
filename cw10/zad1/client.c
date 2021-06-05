@@ -79,7 +79,7 @@ void enter_next_move() {
         message = read_message_noblock(server_sock_fd);
         if (message == NULL) {
             if (message->type == ping){
-                printf("Logout due to no activity\n");
+                printf("Ping check\n");
                 send_message(server_sock_fd, ping, NULL);
             }
         }
@@ -155,7 +155,7 @@ int main(int argc, char** argv){
                         printf("Logged out from server\n");
                         break;
                     } else if (answer->type == ping){
-                        printf("Logout due to no activity\n");
+                        printf("Ping check\n");
                         send_message(server_sock_fd, ping, NULL);
                     } else {
                         perror("Unknown message type received\n");
@@ -164,13 +164,13 @@ int main(int argc, char** argv){
                 }
                 break;
             } else if (answer->type == ping) {
-                printf("Logout due to no activity\n");
+                printf("Ping check\n");
                 send_message(server_sock_fd, ping, NULL);
             }
         }
 
     } else if (answer->type == login_rejected){
-        printf("Server rejected your login\n");
+        printf("Server rejected your login. Reason: %s\n", answer->data);
     } else {
         printf("Unknown message type\n");
     }

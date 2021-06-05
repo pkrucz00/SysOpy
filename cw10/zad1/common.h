@@ -89,4 +89,7 @@ void send_message(int sock_fd, MSG_TYPE type, char* content);
 
 client* create_client(int fd, char* name);
 
+//helpers 
+int rand_range(int a, int b);
+
 #endif
