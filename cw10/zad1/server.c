@@ -39,13 +39,13 @@ void start_server_local(){
         perror("Problem with setting the socket as a passive socket\n");
         exit(EXIT_FAILURE);
     }
-    printf("UNIX soccet listens on %s\n", socket_path);
+    printf("UNIX socket listens on %s\n", socket_path);
 }
 
 void start_server_network(){
     struct hostent* host_entry = gethostbyname("localhost");
     struct in_addr* host_address = malloc(sizeof(struct in_addr));
-    host_address = (struct in_add*) host_entry->h_addr;
+    host_address = (struct in_addr*) host_entry->h_addr;
 
     sock_struct_ipv4.sin_family = AF_INET;
     sock_struct_ipv4.sin_port = htons(port_num);
@@ -173,7 +173,7 @@ int register_client(int fd, char* name) {
 void unregister_client(int fd) {
     for (int i = 0; i < MAX_NO_CLIENTS; i++){
         if (clients[i] && clients[i]->fd == fd){
-            clients[i] == NULL;
+            clients[i] = NULL;
         }
     }
 }
@@ -236,13 +236,15 @@ void* process_connections() {
                 close_connection(fds[i].fd);
                 unregister_client(fds[i].fd);
             } else if (fds[i].revents & POLLIN){
-                if (fds[i].fd == sock_fd_local || fds[i].fd == sock_fd_ipv4){   // server descriptors
+                printf("%d\n", __LINE__);
+                if (fds[i].fd == sock_fd_local || fds[i].fd == sock_fd_ipv4){
+                    printf("%d\n", __LINE__);
                     int registered_index = process_login(fds[i].fd);
                     printf("Client registered at index %d\n", registered_index);
                     if (registered_index >= 0)
                         make_game(registered_index);
                 }
-                else{                       // client descriptors
+                else{                      
                     printf("New message received\n");
                     msg* new_msg = read_message(fds[i].fd);
                     if (new_msg->type == game_move){
@@ -321,7 +323,7 @@ int main(int argc, char** argv){
         perror("Problem with initializing atexit\n");
         exit(EXIT_FAILURE);
     }
-    if (signal(SIGINT, sigint_handler) == -1){
+    if (signal(SIGINT, sigint_handler) == SIG_ERR){
         perror("Problem with setting signal handler\n");
         exit(EXIT_FAILURE);
     }
@@ -344,7 +346,7 @@ int main(int argc, char** argv){
         exit(EXIT_FAILURE);
     }
 
-    stop_server();
+    shutdown_server();
     return 0;
 }
 

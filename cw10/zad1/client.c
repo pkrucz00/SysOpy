@@ -1,7 +1,7 @@
 #include "common.h"
 
-char* name;
-char* server_address;
+char name[MAX_MSG_LEN];
+char server_address[MAX_MSG_LEN];
 int port_num;
 
 int server_sock_fd;
@@ -84,14 +84,10 @@ void enter_next_move() {
             }
         }
     }
-
-
 }
 
-
-
 int main(int argc, char** argv){
-    if (argc != 4 || argc != 5){
+    if (argc < 4 || argc > 5){
         perror("Wrong number of aguments\n");
         exit(EXIT_FAILURE);
     }
@@ -113,7 +109,7 @@ int main(int argc, char** argv){
         perror("Problem with initialazing atexit\n");
         exit(EXIT_FAILURE);
     }
-    if (signal(SIGINT, sigint_handler) == -1){
+    if (signal(SIGINT, sigint_handler) == SIG_ERR){
         perror("Problem with setting handler for SIGINT\n");
         exit(EXIT_FAILURE);
     }

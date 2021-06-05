@@ -67,13 +67,16 @@ enum MSG_TYPE get_message_type(char* message) {
 char* get_message_data(char* message) {
     int tmp;
     char* content = (char*) calloc(MAX_MSG_LEN-1, sizeof(char));
+     printf("%common: d\n", __LINE__);
     sscanf(message, "%d:%[^:]", &tmp, content);
     return content;
 }
 
 msg* read_message(int sock_fd) {
     msg* result_msg = (msg*) malloc(sizeof(msg));
+    printf("common: %d\n", __LINE__);
     char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
+    printf("%common: d\n", __LINE__);
     if(read(sock_fd, (void*) raw_msg, MAX_MSG_LEN) < 0){
         perror("Problem with reading the message\n");
         exit(EXIT_FAILURE);
@@ -85,10 +88,10 @@ msg* read_message(int sock_fd) {
     return result_msg;
 }
 
-msg* read_message_nonblocking(int sock_fd){
+msg* read_message_noblock(int sock_fd){
     msg* result_msg = (msg*) malloc(sizeof(msg));
     char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
-    if(reav(sock_fd, (void*) raw_msg, MAX_MSG_LEN, MSG_DONTWAIT) < 0){
+    if(recv(sock_fd, (void*) raw_msg, MAX_MSG_LEN, MSG_DONTWAIT) < 0){
         perror("Problem with reading the message\n");
         exit(EXIT_FAILURE);
     } 
@@ -97,6 +100,16 @@ msg* read_message_nonblocking(int sock_fd){
     strcpy(result_msg->data, get_message_data(raw_msg));
     free(raw_msg);
     return result_msg;
+}
+
+void send_message(int sock_fd, MSG_TYPE type, char* data){
+    char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
+    sprintf(raw_msg, "%d:%s", (int) type, data);
+    if( write(sock_fd, (void*) raw_msg, MAX_MSG_LEN) == -1){
+        perror("Problem with sending message\n");
+        exit(EXIT_FAILURE);
+    }
+    free(raw_msg);
 }
 
 client* create_client(int fd, char* name){
