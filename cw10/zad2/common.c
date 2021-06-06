@@ -71,6 +71,20 @@ msg* read_message(int sock_fd) {
     return result_msg;
 }
 
+msg* read_message_from(int sock_fd, struct sockaddr* addr, socklen_t* addrlen){
+    msg* result_msg = (msg*) malloc(sizeof(msg));
+    char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
+    if(recvfrom(sock_fd, (void*) raw_msg, MAX_MSG_LEN, 0, addr, addrlen) < 0){
+        perror("Problem with reading the message with recvfrom\n");
+        exit(EXIT_FAILURE);
+    } 
+    result_msg->type = atoi(strtok(raw_msg, ":"));
+    strcpy(result_msg->data, strtok(NULL, ":"));
+    strcpy(result_msg->user, strtok(NULL, ":"));
+    free(raw_msg);
+    return result_msg;
+}
+
 msg* read_message_noblock(int sock_fd){
     msg* result_msg = (msg*) malloc(sizeof(msg));
     char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
@@ -84,9 +98,9 @@ msg* read_message_noblock(int sock_fd){
     return result_msg;
 }
 
-void send_message(int sock_fd, MSG_TYPE type, char* data){
+void send_message(int sock_fd, MSG_TYPE type, char* data, char* user){
     char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
-    sprintf(raw_msg, "%d:%s", (int) type, data);
+    sprintf(raw_msg, "%d:%s:%s", (int) type, data, user);
     if( write(sock_fd, (void*) raw_msg, MAX_MSG_LEN) == -1){
         perror("Problem with sending message\n");
         exit(EXIT_FAILURE);
@@ -94,9 +108,20 @@ void send_message(int sock_fd, MSG_TYPE type, char* data){
     free(raw_msg);
 }
 
-client* create_client(int fd, char* name){
+void send_message_to(int sock_fd, MSG_TYPE type, char* data, struct sockaddr* addr){
+    char* raw_msg = (char*) calloc(MAX_MSG_LEN, sizeof(char));
+    sprintf(raw_msg, "%d:%s", (int) type, data);
+    if( sendto(sock_fd, (void*) raw_msg, MAX_MSG_LEN, 0, addr, sizeof(struct sockaddr)) == -1){
+        perror("Problem with sending message with sendto\n");
+        exit(EXIT_FAILURE);
+    }
+    free(raw_msg);
+}
+
+client* create_client(int fd, struct sockaddr* addr, char* name){
     client* c = (client*) malloc(sizeof(client));
     c -> fd = fd;
+    c -> addr = addr;
     c -> is_responding = 1;
     strcpy(c->name, name);
     return c;

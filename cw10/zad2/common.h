@@ -22,7 +22,7 @@
 #include <netdb.h>
 
 #define MAX_NO_CLIENTS 12
-#define MAX_MSG_LEN 20
+#define MAX_MSG_LEN 40
 
 #define PING_TIMEOUT 10
 #define PING_CHECK_GAP 20
@@ -72,22 +72,28 @@ typedef enum MSG_TYPE {
 
 typedef struct msg {
     MSG_TYPE type;
-    char data[MAX_MSG_LEN];
+    char data[MAX_MSG_LEN / 2];
+    char user[MAX_MSG_LEN / 2];
 } msg;
 
 typedef struct client {
     int fd;
     char name[MAX_MSG_LEN];
     int is_responding;
+    struct sockaddr* addr;
 } client;
 
 msg* read_message(int sock_fd);
 
+msg* read_message_from(int sock_fd, struct sockaddr* addr, socklen_t* addrlen);
+
 msg* read_message_noblock(int sock_fd);
 
-void send_message(int sock_fd, MSG_TYPE type, char* data);
+void send_message(int sock_fd, MSG_TYPE type, char* data, char* user);
 
-client* create_client(int fd, char* name);
+void send_message_to(int sock_fd, MSG_TYPE type, char* data, struct sockaddr* addr);
+
+client* create_client(int fd, struct sockaddr* addr, char* name);
 
 //helpers 
 int rand_range(int a, int b);

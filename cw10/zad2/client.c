@@ -18,26 +18,46 @@ void open_connection(){
         server_sock.sun_family = AF_UNIX;
         strcpy(server_sock.sun_path, server_address);
 
-        if ( (server_sock_fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1){
+        if ( (server_sock_fd = socket(AF_UNIX, SOCK_DGRAM, 0)) == -1){
             perror("Problem with creating socket\n");
             exit(EXIT_FAILURE);
         }
+
+        struct sockaddr_un client_sock;
+        client_sock.sun_family = AF_UNIX;
+        sprintf(client_sock.sun_path, "%s", name);
+
+        if (bind(server_sock_fd, (struct sockaddr*) &client_sock, sizeof(client_sock)) == -1){
+            perror("Problem with binding\n");
+            exit(EXIT_FAILURE);
+        }
+
         if (connect(server_sock_fd, (struct sockaddr*) &server_sock, sizeof(server_sock)) == -1){
             perror("Problem with connecting to server\n");
             exit(EXIT_FAILURE);
         }
-
     } else {
-        struct sockaddr_in server_sock;
-        server_sock.sin_family = AF_INET;
-        server_sock.sin_port = htons(port_num);
-        server_sock.sin_addr.s_addr = inet_addr(server_address);
+        struct sockaddr_in* server_sock = (struct sockaddr_in*) malloc(sizeof(struct sockaddr_in));
+        server_sock -> sin_family = AF_INET;
+        server_sock->sin_port = htons(port_num);
+        server_sock->sin_addr.s_addr = inet_addr(server_address);
     
         if ((server_sock_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
             perror("Problem with creating network socket\n");
             exit(EXIT_FAILURE);
         }
-        if (connect(server_sock_fd, (struct sockaddr*) &server_sock, sizeof(server_sock)) == -1){
+
+        struct sockaddr_in client_sock;
+        client_sock.sin_family = AF_INET;
+        client_sock.sin_port = 0;
+        client_sock.sin_addr.s_addr = inet_addr(server_address);
+
+        if (bind(server_sock_fd, (struct sockaddr*) &client_sock, sizeof(client_sock)) == -1){
+            perror("Problem with binding client\n");
+            exit(EXIT_FAILURE);
+        }
+
+        if (connect(server_sock_fd, (struct sockaddr*) &server_sock, sizeof(struct sockaddr_in)) == -1){
             perror("Problem with connecting to network server\n");
             exit(EXIT_FAILURE);
         }
@@ -46,7 +66,7 @@ void open_connection(){
 }
 
 void close_connection(){
-    send_message(server_sock_fd, logout, NULL);
+    send_message(server_sock_fd, logout, NULL, name);
 
     if (shutdown(server_sock_fd, SHUT_RDWR) == -1){
         perror("Problem with shutdown\n");
@@ -82,7 +102,7 @@ void enter_next_move() {
         if (message != NULL) {
             if (message->type == ping){
                 printf("Ping check\n");
-                send_message(server_sock_fd, ping, NULL);
+                send_message(server_sock_fd, ping, NULL, name);
             }
         }
     }
@@ -118,7 +138,7 @@ int main(int argc, char** argv){
 
     open_connection();
 
-    send_message(server_sock_fd, login_request, name);
+    send_message(server_sock_fd, login_request, NULL, name);
     msg* answer = read_message(server_sock_fd);
 
     if (answer->type == login_approved){
@@ -135,7 +155,7 @@ int main(int argc, char** argv){
                 if (players_sign == X){
                     enter_next_move();
                     printf("Your move: %s\n", input);
-                    send_message(server_sock_fd, game_move, input);
+                    send_message(server_sock_fd, game_move, input, name);
                 }
 
                 while (1){
@@ -146,16 +166,16 @@ int main(int argc, char** argv){
                         printf("%s", answer->data);
                         enter_next_move();
                         printf("Your move: %s\n", input);
-                        send_message(server_sock_fd, game_move, input);
+                        send_message(server_sock_fd, game_move, input, name);
                     } else if (answer->type == game_over){
                         printf("Game over. %s\n", answer->data);
-                        send_message(server_sock_fd, logout, NULL);
+                        send_message(server_sock_fd, logout, NULL, name);
                         printf("Logged out from server\n");
                         logged_in = 0;
                         break;
                     } else if (answer->type == ping){
                         printf("Ping check\n");
-                        send_message(server_sock_fd, ping, NULL);
+                        send_message(server_sock_fd, ping, NULL, name);
                     } else {
                         perror("Unknown message type received\n");
                         exit(EXIT_FAILURE);
@@ -164,7 +184,7 @@ int main(int argc, char** argv){
                 break;
             } else if (answer->type == ping) {
                 printf("Ping check\n");
-                send_message(server_sock_fd, ping, NULL);
+                send_message(server_sock_fd, ping, NULL, name);
             }
         }
 
